@@ -27,3 +27,23 @@ class Solution {
 			return res;
 		}
 };
+
+
+// Better solution
+ListNode* revertList(ListNode* head, ListNode** newHead) {
+	if (!head) return head;
+	if (head->next) {
+		ListNode* tail = revertList(head->next, newHead);
+		tail->next = head;
+		head->next = NULL;
+	}
+	else *newHead = head;
+	return head;
+}
+
+ListNode* reverseList(ListNode* head) {
+	if (!head || !head->next) return head;
+	ListNode* newHead = new ListNode(0);
+	revertList(head, &newHead);
+	return newHead;
+}
