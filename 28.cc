@@ -1,14 +1,29 @@
 class Solution {
-	public:
-		int myAtoi(string str) {
-			long result = 0;
-			bool negative = false;
-			int i = str.find_first_not_of(' ');
-			if (str[i] == '-') negative = true,i++; 
-			else if (str[i] == '+') i++;
-			for (int n = i; i - n <= 10 && isdigit(str[i]); i++)
-				result = result * 10 + (str[i]-'0');
-			if (negative) result = -result;
-			return (result > INT_MAX ? INT_MAX : (result < INT_MIN ? INT_MIN : result));
-		}
+  public:
+    void makeNext(string pattern,vector<int>& next) {
+      int q, k;
+      int m = pattern.size();
+      next.push_back(0);
+      for (q = 1,k = 0; q < m; ++q) {
+        while (k > 0 && pattern[q] != pattern[k])
+          k = next[k-1];
+        if (pattern[q] == pattern[k])
+          k++;
+        next.push_back(k);
+      }
+    }
+
+    int strStr(string haystack, string needle) {
+      if (needle.size() == 0) return 0;
+      vector<int> next;
+      makeNext(needle, next);
+      for (int i = 0, q = 0; i < haystack.size(); ++i) {
+        while(q > 0 && needle[q] != haystack[i])
+          q = next[q-1];
+        if (needle[q] == haystack[i])
+          q++;
+        if (q == needle.size()) return i - needle.size() + 1;
+      }
+      return -1;
+    }
 };
