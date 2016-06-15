@@ -1,17 +1,15 @@
 // 关键是找到不大于 n 的整数中有多少个是平方数
 class Solution {
-  public:
-    int bulbSwitch(int n) {
-      if (0 == n)
-        return 0;
-      int x = 2;
-      int res = 1;
-      for (; pow(x, 2) < INT_MAX && pow(x, 2) <= n; ++x)
-        ++res;
-      return res;
-    }
-};
+public:
+int bulbSwitch(int n) {
+    // find how many perfect squares in [1,n]
+    int count = 0;
+    for(int i=1;i*i<=n;i++)
+        count++;
+    return count;
 
+}
+};
 
 // Time Limit Exceended
 class Solution {
