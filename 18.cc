@@ -1,4 +1,34 @@
-﻿class Solution {
+﻿
+// Duplicate result, how to do unordered_map<vector<int>, bool> ?
+class Solution {
+public:
+  vector<vector<int>> fourSum(vector<int>& nums, int target) {
+    unordered_map<vector<int>, bool> mymap;
+    vector<vector<int>> res;
+    vector<int> tmp;
+    backtracking(mymap, tmp, nums, target, 0);
+    for (unordered_map<vector<int>, bool>::iterator ite = mymap.begin();
+        ite != mymap.end(); ite++)
+      res.push_back(ite->first);
+    return res;
+  }
+  void backtracking(unordered_map<vector<int>, bool>& mymap, vector<int>& tmp,
+    vector<int> nums, int target, int start) {
+      if(tmp.size() > 4) return;
+      if(target == 0 && tmp.size() == 4) {
+        if (mymap.find(tmp) == mymap.end())
+          mymap[tmp] = true;
+        return;
+      }
+      for(int i = start; i < nums.size(); i++){
+        tmp.push_back(nums[i]);
+        backtracking(mymap, tmp, nums, target - nums[i], i + 1);
+        tmp.pop_back();
+      }
+  }
+};
+
+class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
         vector<vector<int>> ret;
