@@ -29,3 +29,17 @@ int majorityElement(vector<int>& nums) {
   }
   return majority;
 }
+int majorityElement(int* nums, int numsSize) {
+    int cnt = 1;
+    int major = nums[0];
+    for(int i = 1; i < numsSize; i++){
+        if(nums[i] == major) cnt++;
+        else if(cnt == 0){
+            major = nums[i];
+            cnt++;
+       }
+       else
+           cnt--;
+    }
+    return major;
+}
