@@ -21,3 +21,28 @@ class Solution {
 			return target + minOffset;
 		}
 };
+
+// Wrong, why?
+class Solution {
+public:
+    int threeSumClosestHelper(vector<int>& nums, int target, int size, int sum, int start) {
+        if (size == 3) return sum;
+        else {
+            long long dis = INT_MAX;
+            for (int i = start; i < nums.size(); i++) {
+                size++;
+                sum += nums[i];
+                int d = threeSumClosestHelper(nums, target, size, sum, i + 1);
+                dis = abs((long long)d - target) < abs(dis - target) ? d : dis;
+                if (d > target) break;
+                size--;
+                sum -= nums[i];
+            }
+            return (int)dis;
+        }
+    }
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        return threeSumClosestHelper(nums, target, 0, 0, 0);
+    }
+};

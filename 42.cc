@@ -14,6 +14,7 @@ class Solution {
 			for(int i = sz - 1; i >= 0; i--){
 				highest = max(height[i], highest);
 				if(highest < prehighest) water -= prehighest - highest;
+        else break;
 			}
 			return water;
 		}

@@ -44,3 +44,41 @@ class Solution {
       return res;
     }
 };
+
+
+
+class Solution { 
+  public:
+    bool compare(Interval &a,Interval &b) { return a.start<b.start || (a.start==b.start&& a.end<b.end); }
+    vector merge(vector& intervals) {
+      int len = intervals.size();
+      if(len==0|| len==1) return intervals;
+      vector<Interval> v(intervals);
+      sort(v.begin(),v.end(),compare);
+      vector<Interval> vec;
+      Interval pre = v[0],cur;
+      for(int i=1;i<len;++i)
+      {
+        cur = v[i];
+        if(cur.start>pre.end)
+        {
+          vec.push_back(pre);
+          pre = cur;
+        }
+        else
+        {
+          if(cur.end>pre.end)
+          {
+            pre.end = cur.end;
+          }
+
+        }
+
+      }
+
+      vec.push_back(pre);
+
+      return vec;
+
+    }
+};
