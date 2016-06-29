@@ -7,27 +7,19 @@
  * };
  */
 class Solution {
-	public:
-		ListNode* swapPairs(ListNode* head) {
-			vector<ListNode*> nodes;
-			ListNode* cur = head;
-			while (cur) {
-				nodes.push_back(cur);
-				cur = cur->next;
-			}
-			if (nodes.size() < 2) return head;
-			bool even = nodes.size() % 2 == 0;
-			head = nodes.at(1);
-			head->next = nodes.at(0);
-			cur = nodes.at(0);
-			int end = even ? nodes.size() : nodes.size() - 1;
-			for (int i = 2; i < end; i += 2) {
-				cur->next = nodes.at(i + 1);
-				cur->next->next = nodes.at(i);
-				cur = nodes.at(i);
-			}
-			if (even) cur->next = NULL;
-			else cur->next = nodes.back();
-			return head;
-		}
+  public:
+    ListNode* swapPairs(ListNode* head) {
+      ListNode* dummy = new ListNode(-1);
+      dummy->next = head;
+      ListNode* ptr = dummy;
+      while (head && head->next) {
+        ListNode* tmp = head->next->next;
+        ptr->next = head->next;
+        head->next->next = head;
+        head->next = tmp;
+        ptr = head;
+        head = tmp;
+      }
+      return dummy->next;
+    }
 };

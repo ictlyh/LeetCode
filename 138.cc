@@ -7,32 +7,25 @@
  * };
  */
 class Solution {
-	public:
-		RandomListNode *copyRandomList(RandomListNode *head) {
-			if (head == NULL) return NULL;
-			unordered_map<RandomListNode*, int> oldList;
-			unordered_map<int, RandomListNode*> newList;
-			RandomListNode *newHead = new RandomListNode(head->label);
-			oldList[head] = 1;
-			newList[1] = newHead;
-			RandomListNode *current = head->next;
-			RandomListNode *ptr = newHead;
-			int i = 2;
-			while (current != NULL) {
-				ptr->next = new RandomListNode(current->label);
-				oldList[current] = i;
-				newList[i] = ptr->next;
-				i++;
-				current = current->next;
-				ptr = ptr->next;
-			}
-			current = head;
-			ptr = newHead;
-			while (current != NULL) {
-				ptr->random = newList[oldList[current->random]];
-				current = current->next;
-				ptr = ptr->next;
-			}
-			return newHead;
-		}
+  public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+      unordered_map<RandomListNode*, RandomListNode*> mymap;
+      RandomListNode* dummy =  new RandomListNode(-1);
+      RandomListNode *oldptr = head;
+      RandomListNode *newptr = dummy;
+      while (oldptr != NULL) {
+        newptr->next = new RandomListNode(oldptr->label);
+        mymap[oldptr] = newptr->next;
+        oldptr = oldptr->next;
+        newptr = newptr->next;
+      }
+      oldptr = head;
+      newptr = dummy->next;
+      while (oldptr != NULL) {
+        newptr->random = mymap[oldptr->random];
+        oldptr = oldptr->next;
+        newptr = newptr->next;
+      }
+      return dummy->next;
+    }
 };
