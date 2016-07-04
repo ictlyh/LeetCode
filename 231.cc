@@ -4,7 +4,6 @@
 			if (num < 1) return false;
 			int count = 0;
 			while (num) {
-				if (num == 1) return true;
 				count++;
 				num &= (num - 1);
 			}
