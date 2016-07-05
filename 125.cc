@@ -18,3 +18,19 @@ class Solution {
       return true;
     }
 };
+class Solution {
+  public:
+    bool isPalindrome(string s) {
+      int j = 0;
+      for (int i = 0; i < s.size(); i++) {
+        if (isalpha(s[i])) {
+          s[j++] = tolower(s[i]);
+        } else if (isdigit(s[i]))
+          s[j++] = s[i];
+      }
+      s.resize(j);
+      for (int l = 0, r = j - 1; l < r; l++, r--)
+        if (s[l] != s[r]) return false;
+      return true;
+    }
+};

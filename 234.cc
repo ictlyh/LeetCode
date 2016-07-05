@@ -25,7 +25,6 @@ class Solution {
       return true;
     }
 };
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -36,36 +35,31 @@ class Solution {
  */
 class Solution {
   public:
+    ListNode* reverseList(ListNode* head) {
+      ListNode* dummy = new ListNode(-1);
+      while (head) {
+        ListNode* tmp = head->next;
+        head->next = dummy->next;
+        dummy->next = head;
+        head = tmp;
+      }
+      return dummy->next;
+    }
     bool isPalindrome(ListNode* head) {
-      ListNode* fast = head;
+      if (!head || !head->next) return true;
       ListNode* slow = head;
-
-      while(fast != nullptr && fast->next != nullptr){
+      ListNode* fast = head->next;
+      while (fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
       }
-
-      if(fast != nullptr) slow = slow->next;
-
-      slow = reverseList(slow);
-
-      fast = head;
-      while(slow != nullptr){
-        if(fast->val != slow->val) return false;
+      fast = reverseList(slow->next);
+      slow->next = NULL;
+      while (head && fast) {
+        if (head->val != fast->val) return false;
+        head = head->next;
         fast = fast->next;
-        slow = slow->next;
       }
-
       return true;
-    }
-
-    ListNode* reverseList(ListNode* head){
-      if(head == nullptr || head->next == nullptr) return head;
-
-      ListNode* node = reverseList(head->next);
-      head->next->next = head;
-      head->next = nullptr;
-
-      return node;
     }
 };
