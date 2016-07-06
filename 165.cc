@@ -1,5 +1,25 @@
 class Solution {
   public:
+    int compareVersion(string version1, string version2) {
+      int i = 0, j = 0;
+      while (i < version1.size() || j < version2.size()) {
+        int tmp1 = 0, tmp2 = 0;
+        while (i < version1.size() && version1[i] != '.')
+          tmp1 = tmp1 * 10 + version1[i++] - '0';
+        while (j < version2.size() && version2[j] != '.')
+          tmp2 = tmp2 * 10 + version2[j++] - '0';
+        if (tmp1 < tmp2) return -1;
+        else if (tmp1 > tmp2) return 1;
+        else {
+          i++;
+          j++;
+        }
+      }
+      return 0;
+    }
+};
+class Solution {
+  public:
     vector<string> split(string str) {
       vector<string> res;
       int b = 0;

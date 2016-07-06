@@ -1,24 +1,28 @@
+class Solution {
+public:
 string generateNextStr(string s) {
   if (s.size() == 0) return string("");
-  string res;
-  for (int i = 0; i < s.size(); i++) {
-    int count = 1;
-    while(i < s.size() - 1 && s[i] == s[i + 1]) {
-      count++;
-      i++;
+  stringstream ss;
+  int count = 1;
+  char c = s[0];
+  for (int i = 1; i < s.size(); i++) {
+    if (s[i] == c) count++;
+    else {
+      ss << count << c;
+      count = 1;
+      c = s[i];
     }
-    res.append(1, (char)(count + '0'));
-    res.append(1, s[i]);
   }
-  return res;
-}
-
-string countAndSayHelper(int n) {
-  if (n < 2) return string("1");
-  string s = countAndSayHelper(n - 1);
-  return generateNextStr(s);
+  ss << count << c;
+  return ss.str();
 }
 
 string countAndSay(int n) {
-  return countAndSayHelper(n);
+  if (n == 0) return "";
+  string res("1");
+  if (n == 1) return res;
+  for (int i = 1; i < n; i++)
+    res = generateNextStr(res);
+  return res;
 }
+};
