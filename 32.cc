@@ -1,4 +1,30 @@
-
+class Solution {
+  public:
+    int longestValidParentheses(string s) {
+      int ans = 0, l = s.size(), sum = 0, start = 0;
+      for (int i = 0; i < l; i++) {
+        sum += (s[i] == '(')? 1 : -1;
+        if (sum < 0) {
+          sum = 0;
+          start = i + 1;
+        } else if (sum == 0) {
+          ans = max(ans, i - start + 1);
+        }
+      }
+      start = l - 1;
+      sum = 0;
+      for (int i = l - 1; i >= 0; i--) {
+        sum += (s[i] == '(')? 1 : -1;
+        if (sum > 0) {
+          sum = 0;
+          start = i - 1;
+        } else if (sum == 0) {
+          ans = max(ans, start - i + 1);
+        }
+      }
+      return ans;
+    }
+};
 
 
 // Time Limit Exceeded
