@@ -1,3 +1,16 @@
+class Solution {
+  public:
+    int rob(vector<int>& nums) {
+      int rob = 0, norob = 0;
+      for (int num : nums) {
+        int robcur = norob + num;
+        norob = max(norob, rob);
+        rob = robcur;
+      }
+      return max(rob, norob);
+    }
+};
+
 //dp[i] indicates the maximum amount you can rob ending in indexing i
 //dp[i] = max{dp[i-1], dp[i-2] + nums[i]}
 class Solution {
