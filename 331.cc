@@ -1,5 +1,19 @@
 class Solution {
   public:
+    bool isValidSerialization(string preorder) {
+      int degree = -1;
+      stringstream ss(preorder);
+      string str;
+      while (getline(ss, str, ',')) {
+        degree++;
+        if (degree > 0) return false;
+        if (str.compare("#") != 0) degree -= 2;
+      }
+      return degree == 0;
+    }
+};
+class Solution {
+  public:
     bool topTwoIsSharp(stack<int>& s) {
       if (s.size() < 2) return false;
       char t1 = s.top();
