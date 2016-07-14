@@ -1,28 +1,24 @@
 // 重点掌握使用 stringstream，getline 进行字符串切分
+class Solution {
+public:
 string simplifyPath(string path) {
-  vector<string> simplify;
+  if (path.size() < 2) return path;
   stringstream ss(path);
-  string tmp;
-  while (getline(ss, tmp, '/')) {
-    if (tmp == "" || tmp == ".") {
-      continue;
-    } else if (tmp == "..") {
-      if (!simplify.empty()) {
-        simplify.pop_back();
-      }
-    } else {
-      simplify.push_back(tmp);
-    }
+  string str;
+  vector<string> paths;
+  while (getline(ss, str, '/')) {
+    if (str.size() == 0 || str.compare(".") == 0) continue;
+    else if (str.compare("..") == 0) {
+      if (!paths.empty()) paths.pop_back();
+      else continue;
+    } else paths.push_back(str);
   }
-  string ans = "";
-  for (string i : simplify) {
-    ans += "/" + i;
-  }
-  if (ans == "") {
-    ans = "/";
-  }
-  return ans;
+  string res("");
+  for (string path : paths)
+    res += "/" + path;
+  return res.size() == 0 ? "/" : res;
 }
+};
 class Solution {
   public:
     vector<string> splitBySlash(string str) {
