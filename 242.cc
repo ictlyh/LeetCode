@@ -1,6 +1,17 @@
 class Solution {
   public:
     bool isAnagram(string s, string t) {
+      int counts[26]{0};
+      for(int i = 0; i < s.length(); ++i) counts[s[i]-'a']++;
+      for(int i = 0; i < t.length(); ++i) counts[t[i]-'a']--;
+      for(int i = 0; i < 26; ++i) if(counts[i]) return false;
+      return true;
+    }
+};
+
+class Solution {
+  public:
+    bool isAnagram(string s, string t) {
       if (s.size() != t.size()) return false;
       sort(s.begin(), s.end());
       sort(t.begin(), t.end());
@@ -10,36 +21,20 @@ class Solution {
 
 class Solution {
   public:
-    map<int, char>::iterator position(map<int, char>& mymap, char value) {
-      map<int, char>::iterator ite = mymap.begin();
-      while (ite != mymap.end()) {
-        if (ite->second == value) return ite;
-        ite++;
-      }
-      return ite;
-    }
-
     bool isAnagram(string s, string t) {
       if (s.length() != t.length()) return false;
-      map<int, char> mymap;
-      for (int i = 0; i < s.length(); i++)
-        mymap.insert(pair<int, char>(i, s[i]));
-      for (int i = 0; i < t.length(); i++) {
-        map<int, char>::iterator ite = position(mymap, t[i]);
-        if (ite == mymap.end()) return false;
-        mymap.erase(ite);
+      map<char, int> mymap1, mymap2;
+      for (int i = 0; i < s.length(); i++) {
+        if (mymap1.count(s[i])) mymap1[s[i]]++;
+        else mymap1[s[i]] = 1;
+        if (mymap2.count(t[i])) mymap2[t[i]]++;
+        else mymap2[t[i]] = 1;
       }
-      return true;
-    }
-};
-
-class Solution {
-  public:
-    bool isAnagram(string s, string t) {
-      int counts[26]{0};
-      for(int i = 0; i < s.length(); ++i) counts[s[i]-'a']++;
-      for(int i = 0; i < t.length(); ++i) counts[t[i]-'a']--;
-      for(int i = 0; i < 26; ++i) if(counts[i]) return false;
-      return true;
+      map<char, int>::iterator ite1 = mymap1.begin();
+      map<char, int>::iterator ite2 = mymap2.begin();
+      for (; ite1 != mymap1.end() && ite2 != mymap2.end(); ite1++, ite2++)
+        if (ite1->first != ite2->first || ite1->second != ite2->second) return false;
+      if (ite1 == mymap1.end() && ite2 == mymap2.end()) return true;
+      return false;
     }
 };

@@ -7,6 +7,21 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
+// LeetCode runtime error, but vs okay, why?
+class Solution {
+public:
+vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+  vector<Interval>::iterator ite = intervals.begin();
+  while (ite != intervals.end() && ite->end < newInterval.start) ite++;
+  while (ite != intervals.end() && ite->start <= newInterval.end) {
+    newInterval = Interval(min(ite->start, newInterval.start), max(ite->end, newInterval.end));
+    ite = intervals.erase(ite);
+  }
+  intervals.insert(ite, newInterval);
+  return intervals;
+}
+};
+
 class Solution {
 	public:
 		Interval merge(Interval val1, Interval val2) {

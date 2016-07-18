@@ -56,3 +56,20 @@ class Solution {
       return ret;
     }
 };
+class Solution {
+  public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+      map<int, bool> mymap;
+      vector<int> res;
+      for (int i = 0; i < nums1.size(); i++) {
+        if (mymap.count(nums1[i]) == 0) mymap[nums1[i]] = true;
+      }
+      for (int i = 0; i < nums2.size(); i++) {
+        if (mymap.count(nums2[i]) && mymap[nums2[i]]) {
+          res.push_back(nums2[i]);
+          mymap[nums2[i]] = false;
+        }
+      }
+      return res;
+    }
+};

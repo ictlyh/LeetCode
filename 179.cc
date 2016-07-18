@@ -1,5 +1,24 @@
 class Solution {
   public:
+    static bool intCompare(int a, int b) {
+      string s_a = to_string(a);
+      string s_b = to_string(b);
+      return (s_a + s_b) > (s_b + s_a);
+    }
+    string largestNumber(vector<int>& nums) {
+      sort(nums.begin(), nums.end(), intCompare);
+      stringstream ss;
+      for (int i = 0; i < nums.size(); i++)
+        ss << nums[i];
+      string res = ss.str();
+      int i = 0;
+      while (i < res.size() && res[i] == '0') i++;
+      if (i == res.size()) return "0";
+      return res.substr(i);
+    }
+};
+class Solution {
+  public:
     bool static intCompare(int a, int b) {
       stack<int> adigits;
       stack<int> bdigits;
