@@ -1,3 +1,18 @@
+class Solution {
+  public:
+    int majorityElement(vector<int>& nums) {
+      int res = 0;
+      int count = 0;
+      for (int num : nums) {
+        if (count == 0) {
+          res = num;
+          count = 1;
+        } else if (res == num) count++;
+        else count--;
+      }
+      return count ? res : 0;
+    }
+};
 int majorityElement(vector<int>& nums) {
   sort(nums.begin(),nums.end());
   return nums[nums.size()/2];
@@ -28,18 +43,4 @@ int majorityElement(vector<int>& nums) {
     }
   }
   return majority;
-}
-int majorityElement(int* nums, int numsSize) {
-    int cnt = 1;
-    int major = nums[0];
-    for(int i = 1; i < numsSize; i++){
-        if(nums[i] == major) cnt++;
-        else if(cnt == 0){
-            major = nums[i];
-            cnt++;
-       }
-       else
-           cnt--;
-    }
-    return major;
 }
