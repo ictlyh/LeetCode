@@ -21,3 +21,5 @@ class Solution {
       return isSymmetricHelper(root->left, root->right);
     }
 };
+
+// 或者先构造一个镜像树，再判断两棵树是否相同

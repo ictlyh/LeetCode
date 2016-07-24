@@ -9,6 +9,15 @@
  */
 class Solution {
   public:
+    int minDepth(TreeNode* root) {
+      if (root == NULL) return 0;
+      else if (root->left == NULL) return 1 + minDepth(root->right);
+      else if (root->right == NULL) return 1 + minDepth(root->left);
+      else return min(minDepth(root->left), minDepth(root->right)) + 1;
+    }
+};
+class Solution {
+  public:
     void minDepthHelper(TreeNode* node, int cur_depth, int& min_depth) {
       if (!node) return;
       cur_depth++;

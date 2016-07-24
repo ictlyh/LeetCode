@@ -9,6 +9,25 @@
  */
 class Solution {
   public:
+    bool isBalancedHelper(TreeNode* node, int& height) {
+      if (node == NULL) {
+        height = 0;
+        return true;
+      }
+      bool lbal, rbal;
+      int lhei, rhei;
+      lbal = isBalancedHelper(node->left, lhei);
+      rbal = isBalancedHelper(node->right, rhei);
+      height = max(lhei, rhei) + 1;
+      return lbal && rbal && abs(lhei - rhei) <= 1;
+    }
+    bool isBalanced(TreeNode* root) {
+      int height;
+      return isBalancedHelper(root, height);
+    }
+};
+class Solution {
+  public:
     void maxDepthHelper(TreeNode* node, int cur_depth, int& max_depth) {
       if (!node) return;
       cur_depth++;
