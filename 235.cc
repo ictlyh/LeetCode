@@ -1,28 +1,15 @@
-﻿/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
+﻿class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return (root->val - p->val) * (root->val - q->val) <=0 ? root : (root->val > p->val ? lowestCommonAncestor(root->left, p, q) : lowestCommonAncestor(root->right, p ,q));
+        TreeNode* pointer = root;
+        while (pointer) {
+            if ((pointer->val - p->val) * (pointer->val - q->val) <= 0) return pointer;
+            else if (pointer->val > p->val && pointer->val > q->val) pointer = pointer->left;
+            else pointer = pointer->right;
+        }
+        return pointer;
     }
 };
-
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -62,47 +49,6 @@ public:
         return pointer;
     }
 };
-
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    bool isAncestor(TreeNode* root, TreeNode* v) {
-        if(root == NULL)
-            return false;
-        if(root == v)
-            return true;
-        else return (isAncestor(root->left, v) || isAncestor(root->right, v));
-    }
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(isAncestor(p ,q))
-            return p;
-        if(isAncestor(q, p))
-            return q;
-        if(isAncestor(root->left, p) && isAncestor(root->left, q))
-            return lowestCommonAncestor(root->left, p, q);
-        else if(isAncestor(root->right, p) && isAncestor(root->right, q))
-            return lowestCommonAncestor(root->right, p, q);
-        else return root;
-    }
-};
-
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Solution {
 public:
     bool isAncestor(TreeNode* root, TreeNode* v) {
