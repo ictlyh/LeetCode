@@ -1,18 +1,17 @@
 class Solution {
-  public:
-    int longestConsecutive(vector<int>& nums) {
-      unordered_set<int> st(nums.begin(),nums.end());
-      int ret = 0;
-      while (st.size()) {
-        int x = st.front();
-        int left = x, right = x + 1;
-        while (st.count(left))
-          st.erase(left--);
-        while (st.count(right))
-          st.erase(right++);
-        ret = max(ret, right - left  - 1);
-      }
-      return ret;
+public:
+    int longestConsecutive(vector<int> &num) {
+        unordered_set<int> record(num.begin(), num.end());
+        int res = 1;
+        for (int n : num) {
+            if (record.find(n) == record.end()) continue;
+            record.erase(n);
+            int prev = n - 1, next = n + 1;
+            while (record.find(prev) != record.end()) record.erase(prev--);
+            while (record.find(next) != record.end()) record.erase(next++);
+            res = max(res, next - prev - 1);
+        }
+        return res;
     }
 };
 class Solution {
