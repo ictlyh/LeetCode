@@ -1,5 +1,4 @@
-# LeetCode
+# LeetCode & 剑指offer
 
-cpp solutions for questions of LeetCode Algorithm.
-
-Questions refer to https://leetcode.com/problemset/algorithms/
+LeetCode Algorithm: [https://leetcode.com/problemset/algorithms/](https://leetcode.com/problemset/algorithms/)  
+剑指Offer: [http://www.nowcoder.com/ta/coding-interviews?page=1](http://www.nowcoder.com/ta/coding-interviews?page=1)
